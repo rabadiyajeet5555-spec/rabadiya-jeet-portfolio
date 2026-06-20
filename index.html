@@ -369,7 +369,7 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:36cd0d67-e1d4-4b24-b80c-294159cbfcf1?x_api_client_id=chrome_extension_viewer&x_api_client_location=share" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;" aria-label="Download Resume">
+      <a href="#" id="navResumeBtn" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:10px 20px;font-size:0.85rem;" aria-label="Download Resume">
         <i class="fas fa-download"></i> Resume
       </a>
     </div>
@@ -410,7 +410,7 @@
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket" aria-hidden="true"></i> View My Work</a>
         <a href="#contact" class="btn btn-ghost"><i class="fas fa-paper-plane" aria-hidden="true"></i> Get In Touch</a>
-        <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:36cd0d67-e1d4-4b24-b80c-294159cbfcf1?x_api_client_id=chrome_extension_viewer&x_api_client_location=share" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><i class="fas fa-download" aria-hidden="true"></i> Resume</a>
+        <a href="#" id="heroResumeBtn" target="_blank" rel="noopener noreferrer" class="btn btn-ghost"><i class="fas fa-download" aria-hidden="true"></i> Resume</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item"><div class="stat-num" data-count="4">0+</div><div class="stat-label">Projects Built</div></div>
@@ -745,6 +745,10 @@
             <div class="contact-item-icon"><i class="fab fa-github"></i></div>
             <div><div class="contact-item-label">GitHub</div><div class="contact-item-value">rabadiyajeet1119-art</div></div>
           </a>
+          <a href="tel:+916351770741" class="contact-item" aria-label="Phone">
+            <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+            <div><div class="contact-item-label">Phone</div><div class="contact-item-value">+91 6351770741</div></div>
+          </a>
           <div class="contact-item" style="cursor:default;">
             <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
             <div><div class="contact-item-label">Location</div><div class="contact-item-value">Rajkot, Gujarat, India</div></div>
@@ -754,7 +758,8 @@
           <a href="https://github.com/rabadiyajeet1119-art/new-xeno.git" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/rabadiya-rabadiya-jeet-0405a7415" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           <a href="mailto:rabadiyajeet5555@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
-          <a href="https://acrobat.adobe.com/id/urn:aaid:sc:AP:36cd0d67-e1d4-4b24-b80c-294159cbfcf1?x_api_client_id=chrome_extension_viewer&x_api_client_location=share" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Resume"><i class="fas fa-file-alt"></i></a>
+          <a href="tel:+916351770741" class="social-link" aria-label="Phone"><i class="fas fa-phone-alt"></i></a>
+          <a href="#" id="socialResumeBtn" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Resume"><i class="fas fa-file-alt"></i></a>
         </div>
       </div>
 
@@ -821,6 +826,55 @@
     </div>
   </div>
 </footer>
+
+<!-- ====================================================
+     ADMIN RESUME MODAL
+==================================================== -->
+<div id="adminModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(15,23,42,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center;" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+  <div style="background:#fff;border-radius:24px;padding:40px;max-width:420px;width:90%;box-shadow:0 24px 80px rgba(0,0,0,0.18);position:relative;animation:fade-up 0.3s ease;">
+    <button onclick="closeAdminModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.3rem;color:#64748b;cursor:pointer;" aria-label="Close">&times;</button>
+    <!-- Step 1: Password -->
+    <div id="adminStep1">
+      <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#6d28d9);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <i class="fas fa-lock" style="color:#fff;font-size:1.3rem;"></i>
+      </div>
+      <h2 id="adminModalTitle" style="font-size:1.35rem;font-weight:800;color:#0f172a;margin-bottom:6px;">Admin Access</h2>
+      <p style="font-size:0.9rem;color:#64748b;margin-bottom:24px;">Enter your secret password to update the resume.</p>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:0.78rem;font-weight:600;color:#334155;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Password</label>
+        <input type="password" id="adminPassword" placeholder="Enter password..." style="width:100%;padding:13px 16px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.95rem;color:#0f172a;outline:none;transition:border 0.2s;" onkeydown="if(event.key==='Enter')verifyAdmin()" />
+        <div id="adminPwdError" style="display:none;color:#ef4444;font-size:0.8rem;margin-top:6px;">❌ Incorrect password. Try again.</div>
+      </div>
+      <button onclick="verifyAdmin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#0ea5e9,#6d28d9);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+        <i class="fas fa-unlock-alt" style="margin-right:8px;"></i>Verify & Continue
+      </button>
+    </div>
+    <!-- Step 2: Upload -->
+    <div id="adminStep2" style="display:none;">
+      <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0ea5e9,#6d28d9);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+        <i class="fas fa-file-upload" style="color:#fff;font-size:1.3rem;"></i>
+      </div>
+      <h2 style="font-size:1.35rem;font-weight:800;color:#0f172a;margin-bottom:6px;">Upload New Resume</h2>
+      <p style="font-size:0.9rem;color:#64748b;margin-bottom:24px;">Select your updated PDF file. It will be saved and displayed across the portfolio.</p>
+      <label for="resumeFileInput" style="display:block;border:2px dashed #0ea5e9;border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:background 0.2s;background:#f0f9ff;margin-bottom:16px;" onmouseover="this.style.background='#e0f2fe'" onmouseout="this.style.background='#f0f9ff'">
+        <i class="fas fa-cloud-upload-alt" style="font-size:2rem;color:#0ea5e9;display:block;margin-bottom:10px;"></i>
+        <span id="uploadLabel" style="font-size:0.9rem;color:#334155;font-weight:600;">Click to select PDF file</span>
+        <input type="file" id="resumeFileInput" accept=".pdf" style="display:none;" onchange="handleResumeFile(this)" />
+      </label>
+      <div id="uploadProgress" style="display:none;margin-bottom:12px;">
+        <div style="height:4px;background:#e2e8f0;border-radius:10px;overflow:hidden;">
+          <div id="uploadBar" style="height:100%;width:0%;background:linear-gradient(135deg,#0ea5e9,#6d28d9);border-radius:10px;transition:width 0.4s ease;"></div>
+        </div>
+        <p style="font-size:0.8rem;color:#64748b;margin-top:6px;text-align:center;">Saving resume...</p>
+      </div>
+      <div id="uploadSuccess" style="display:none;text-align:center;padding:14px;background:#f0fdf4;border:1px solid #86efac;border-radius:10px;color:#16a34a;font-weight:600;font-size:0.9rem;margin-bottom:12px;">✅ Resume updated successfully!</div>
+      <button onclick="closeAdminModal()" style="width:100%;padding:12px;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;margin-top:4px;">Close Panel</button>
+      <div style="margin-top:14px;padding:12px;background:#fef9ec;border:1px solid #fde68a;border-radius:10px;">
+        <p style="font-size:0.78rem;color:#92400e;"><i class="fas fa-info-circle" style="margin-right:5px;"></i>The resume is saved in this browser. To update on all devices, re-upload on each device or push the PDF file to GitHub.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ====================================================
      JAVASCRIPT
@@ -963,6 +1017,145 @@
   const expGrid = document.querySelector('.exp-grid');
   function checkExpGrid(){ if(expGrid) expGrid.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : '1fr 1fr'; }
   checkExpGrid(); window.addEventListener('resize', checkExpGrid);
+
+  // ============================================================
+  // RESUME DYNAMIC LINKS
+  // ============================================================
+  const FALLBACK_RESUME = 'https://acrobat.adobe.com/id/urn:aaid:sc:AP:36cd0d67-e1d4-4b24-b80c-294159cbfcf1?x_api_client_id=chrome_extension_viewer&x_api_client_location=share';
+  const RESUME_STORAGE_KEY = 'rj_resume_data';
+
+  function getResumeHref(){
+    const stored = localStorage.getItem(RESUME_STORAGE_KEY);
+    return stored ? stored : FALLBACK_RESUME;
+  }
+
+  function updateAllResumeLinks(){
+    const href = getResumeHref();
+    const isBlob = href.startsWith('data:');
+    ['navResumeBtn','heroResumeBtn','socialResumeBtn'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(isBlob){
+        el.href = '#';
+        el.onclick = function(e){
+          e.preventDefault();
+          const byteStr = atob(href.split(',')[1]);
+          const ab = new ArrayBuffer(byteStr.length);
+          const ia = new Uint8Array(ab);
+          for(let i=0;i<byteStr.length;i++) ia[i]=byteStr.charCodeAt(i);
+          const blob = new Blob([ab],{type:'application/pdf'});
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+          document.body.appendChild(a); a.click();
+          setTimeout(()=>{ URL.revokeObjectURL(url); document.body.removeChild(a); },1000);
+        };
+      } else {
+        el.href = href;
+        el.onclick = null;
+        el.target = '_blank';
+      }
+    });
+  }
+  updateAllResumeLinks();
+
+  // ============================================================
+  // ADMIN PANEL — Secret trigger: click 'RJ' logo 5 times
+  // ============================================================
+  const ADMIN_PASSWORD_HASH = btoa('jeet@admin2024'); // Base64 encoded password
+  let logoClickCount = 0;
+  let logoClickTimer = null;
+
+  const navLogo = document.querySelector('.nav-logo');
+  if(navLogo){
+    navLogo.addEventListener('click', function(e){
+      // Only trigger if not navigating (no # href active)
+      logoClickCount++;
+      clearTimeout(logoClickTimer);
+      if(logoClickCount >= 5){
+        e.preventDefault();
+        logoClickCount = 0;
+        openAdminModal();
+      } else {
+        logoClickTimer = setTimeout(()=>{ logoClickCount = 0; }, 2000);
+      }
+    });
+  }
+
+  function openAdminModal(){
+    const modal = document.getElementById('adminModal');
+    modal.style.display = 'flex';
+    document.getElementById('adminStep1').style.display = 'block';
+    document.getElementById('adminStep2').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+    document.getElementById('adminPwdError').style.display = 'none';
+    document.getElementById('uploadSuccess').style.display = 'none';
+    document.getElementById('uploadProgress').style.display = 'none';
+    document.getElementById('uploadLabel').textContent = 'Click to select PDF file';
+    document.body.style.overflow = 'hidden';
+    setTimeout(()=>document.getElementById('adminPassword').focus(), 200);
+  }
+
+  function closeAdminModal(){
+    document.getElementById('adminModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function verifyAdmin(){
+    const pwd = document.getElementById('adminPassword').value;
+    const errEl = document.getElementById('adminPwdError');
+    if(btoa(pwd) === ADMIN_PASSWORD_HASH){
+      errEl.style.display = 'none';
+      document.getElementById('adminStep1').style.display = 'none';
+      document.getElementById('adminStep2').style.display = 'block';
+    } else {
+      errEl.style.display = 'block';
+      document.getElementById('adminPassword').style.borderColor = '#ef4444';
+      document.getElementById('adminPassword').focus();
+      setTimeout(()=>{ document.getElementById('adminPassword').style.borderColor = '#e2e8f0'; }, 1500);
+    }
+  }
+
+  function handleResumeFile(input){
+    const file = input.files[0];
+    if(!file) return;
+    if(file.type !== 'application/pdf'){
+      alert('Please select a valid PDF file.');
+      return;
+    }
+    if(file.size > 8 * 1024 * 1024){
+      alert('File too large! Please upload a PDF under 8MB.');
+      return;
+    }
+    document.getElementById('uploadLabel').textContent = '📄 ' + file.name;
+    document.getElementById('uploadProgress').style.display = 'block';
+    const bar = document.getElementById('uploadBar');
+    bar.style.width = '0%';
+    const reader = new FileReader();
+    reader.onprogress = function(e){
+      if(e.lengthComputable) bar.style.width = Math.round((e.loaded/e.total)*80) + '%';
+    };
+    reader.onload = function(e){
+      bar.style.width = '100%';
+      setTimeout(()=>{
+        localStorage.setItem(RESUME_STORAGE_KEY, e.target.result);
+        updateAllResumeLinks();
+        document.getElementById('uploadProgress').style.display = 'none';
+        document.getElementById('uploadSuccess').style.display = 'block';
+      }, 400);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Close modal on backdrop click
+  document.getElementById('adminModal').addEventListener('click', function(e){
+    if(e.target === this) closeAdminModal();
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && document.getElementById('adminModal').style.display === 'flex') closeAdminModal();
+  });
 </script>
 </body>
 </html>
